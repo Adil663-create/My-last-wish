@@ -1,0 +1,77 @@
+#include <iostream>
+#include <vector>
+#include <string>
+
+using namespace std;
+
+// Structure to store user requests
+struct Request {
+    string name;
+    string productDetails;
+};
+
+// Vector to store all requests
+vector<Request> requests;
+
+// Function to display all requests (for admin)
+void viewRequests() {
+    if (requests.empty()) {
+        cout << "\nNo requests found.\n";
+        return;
+    }
+
+    cout << "\n==== All Product Requests ====\n";
+    for (size_t i = 0; i < requests.size(); ++i) {
+        cout << "Request " << i + 1 << ":\n";
+        cout << "Name: " << requests[i].name << endl;
+        cout << "Product Details: " << requests[i].productDetails << endl;
+        cout << "--------------------------\n";
+    }
+}
+
+// Function to add a new request
+void addRequest() {
+    Request newRequest;
+    cin.ignore(); // Clear input buffer
+    cout << "\nEnter your name: ";
+    getline(cin, newRequest.name);
+
+    cout << "Enter the product details: ";
+    getline(cin, newRequest.productDetails);
+
+    requests.push_back(newRequest);
+    cout << "\nYour request has been submitted successfully!\n";
+}
+
+// Main program
+int main() {
+    int choice;
+
+    do {
+        // Main menu
+        cout << "\n============================================\n";
+        cout << "      Welcome to Online Product Center      \n";
+        cout << "============================================\n";
+        cout << "1. Submit a new product request\n";
+        cout << "2. View all product requests (Admin only)\n";
+        cout << "3. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                addRequest();
+                break;
+            case 2:
+                viewRequests();
+                break;
+            case 3:
+                cout << "\nThank you for using our service!\n";
+                break;
+            default:
+                cout << "\nInvalid choice. Please try again.\n";
+        }
+    } while (choice != 3);
+
+    return 0;
+}
